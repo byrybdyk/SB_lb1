@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: ib_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ib
+    ports: ["5432:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d ib"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres-data:
