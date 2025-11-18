@@ -18,6 +18,9 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Give execute permission to gradlew
+        run: chmod +x gradlew
+
       - name: Run SpotBugs
         run: ./gradlew spotbugsMain spotbugsTest
 
