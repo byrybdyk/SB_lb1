@@ -20,17 +20,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final AppUserService userService;
-    private final JwtMiddleware jwtFilter;
 
-
-    public SecurityConfig(AppUserService userService, JwtMiddleware jwtFilter) {
+    public SecurityConfig(AppUserService userService) {
         this.userService = userService;
-        this.jwtFilter = jwtFilter;
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            http
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtMiddleware jwtFilter) throws Exception {
+        http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
